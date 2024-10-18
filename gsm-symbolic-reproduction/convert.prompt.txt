@@ -1,0 +1,108 @@
+You are an AI assistant specialized in converting specific math word problems into generalized symbolic templates. Your task is to take a given word problem and transform it into a template format that generalizes the problem while maintaining its mathematical structure.
+
+Here is the word problem you need to convert:
+<word_problem_question>
+{{question}}
+</word_problem_question>
+
+<word_problem_answer>
+{{answer}}
+</word_problem_answer>
+
+Follow these steps to convert the word problem into a symbolic template:
+
+1. Read the word problem carefully and identify the key elements: names, family relationships, numeric values, and mathematical relationships.
+
+2. Replace specific names with {name} placeholders.
+
+3. Replace specific family relationships with {family} placeholders.
+
+4. Replace numeric values with appropriate variable placeholders (e.g., {x}, {y}, {z}, {total}).
+
+5. Create a #variables section defining the range and type for each variable:
+   - Use sample() for names and categorical variables
+   - Use range() for numeric variables, specifying appropriate min and max values
+
+6. Create a #conditions section specifying any mathematical relationships between variables.
+
+7. Provide a generalized solution template using the defined variables.
+
+Your output should follow this format:
+
+<symbolic_template>
+[Generalized word problem with placeholders]
+
+#variables:
+- {name} = sample(names)
+- {family} = sample([list of possible family relationships])
+- {x} = range(min, max)
+- {y} = range(min, max)
+- {z} = range(min, max)
+- {total} = range(min, max)
+- {ans} = range(min, max)
+
+#conditions:
+- [Mathematical relationships between variables]
+
+[Generalized solution template]
+</symbolic_template>
+
+Here's an example of the expected output format:
+
+<example>
+When {name} watches her {family}, she gets out a variety of toys for him. The bag of building blocks has {x} blocks in it. The bin of stuffed animals has {y} stuffed animals inside. The tower of stacking rings has {z} multicolored rings on it. {name} recently bought a tube of bouncy balls, bringing her total number of toys she bought for her {family} up to {total}. How many bouncy balls came in the tube?
+
+#variables:
+- {name} = sample(names)
+- {family} = sample(["nephew", "cousin", "brother"])
+- {x} = range(5, 100)
+- {y} = range(5, 100)
+- {z} = range(5, 100)
+- {total} = range(100, 500)
+- {ans} = range(85, 200)
+
+#conditions:
+- {x} + {y} + {z} + {ans} == {total}
+
+Let T be the number of bouncy balls in the tube. After buying the tube of balls, {name} has {x} + {y} + {z} + T = {x+y+z} + T = {total} toys for her {family}.
+
+Thus, T = {total} - {x+y+z} = {ans} bouncy balls came in the tube.
+</example>
+
+A complete example is:
+<complete_example>
+<inputs>
+<word_problem_question>
+When Sophie watches her nephew, she gets out a variety of toys for him. The bag of building blocks has 31 blocks in it. The bin of stuffed animals has 8 stuffed animals inside. The tower of stacking rings has 9 multicolored rings on it. Sophie recently bought a tube of bouncy balls, bringing her total number of toys for her nephew up to 62. How many bouncy balls came in the tube?
+</word_problem_question>
+<word_problem_answer>
+Let T be the number of bouncy balls in the tube.
+After buying the tube of balls, Sophie has 31+8+9+ T = 48 + T = 62 toys for her nephew.
+Thus, T = 62-48 = 14 bouncy balls came in the tube.
+</word_problem_answer>
+</inputs>
+<output>
+<symbolic_template_question>
+When {name} watches her {family}, she gets out a variety of toys for him. The bag of building blocks has {x} blocks in it. The bin of stuffed animals has {y} stuffed animals inside. The tower of stacking rings has {z} multicolored rings on it. {name} recently bought a tube of bouncy balls, bringing her total number of toys she bought for her {family} up to {total}. How many bouncy balls came in the tube?
+
+#variables:
+- {name} = sample(names)
+- {family} = sample(["nephew", "cousin", "brother"])
+- {x} = range(5, 100)
+- {y} = range(5, 100)
+- {z} = range(5, 100)
+- {total} = range(100, 500)
+- {ans} = range(85, 200)
+
+#conditions:
+- {x} + {y}  + {z} + {ans} == {total}
+</symbolic_template_question>
+<symbolic_template_answer>
+Let T be the number of bouncy balls in the tube. After buying the tube of balls, {name} has {x} + {y} + {z} + T = {x+y+z} + T = {total} toys for her {family}.
+
+Thus, T = {total} - {x+y+z} = {ans} bouncy balls came in the tube.
+</symbolic_template_answer>
+</output>
+</complete_example>
+
+Now, please convert the given word problem into a symbolic template following this format. Ensure that you generalize the problem appropriately while maintaining its mathematical structure. Provide your answer within <symbolic_template_question> and <symbolic_template_answer> tags.

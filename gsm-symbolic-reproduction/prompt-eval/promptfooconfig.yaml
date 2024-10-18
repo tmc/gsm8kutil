@@ -1,0 +1,45 @@
+prompts:
+  - file://../convert.prompt.txt
+
+providers:
+    - id: exec:./run-cgpt.sh
+      label: "cgpt:ollama"
+      config:
+        backend: ollama
+        model: llama3.2:1b
+    - id: exec:./run-cgpt.sh
+      label: "cgpt:anthropic:claude-3-5-sonnet-20240620"
+      config:
+        backend: anthropic
+        model: claude-3-5-sonnet-20240620
+    - id: exec:./run-cgpt.sh
+      label: "cgpt:anthropic:claude-3-haiku-20240307"
+      config:
+        backend: anthropic
+        model: claude-3-haiku-20240307
+
+tests:
+  - description: GSM8K word problem to symbolic template conversion
+    vars:
+      question:
+        - "When Sophie watches her nephew, she gets out a variety of toys for him. The bag of building blocks has 31 blocks in it. The bin of stuffed animals has 8 stuffed animals inside. The tower of stacking rings has 9 multicolored rings on it. Sophie recently bought a tube of bouncy balls, bringing her total number of toys for her nephew up to 62. How many bouncy balls came in the tube?"
+        - "Emma has a collection of marbles. She has 15 blue marbles, 23 red marbles, and 18 green marbles. Emma's parents give her a bag of yellow marbles for her birthday, increasing her total marble count to 76. How many yellow marbles did Emma receive?"
+      answer:
+        - "Let T be the number of bouncy balls in the tube. After buying the tube of balls, Sophie has 31+8+9+ T = 48 + T = 62 toys for her nephew. Thus, T = 62-48 = 14 bouncy balls came in the tube."
+        - "Let Y be the number of yellow marbles Emma received. Emma's total marble count is 15 + 23 + 18 + Y = 56 + Y = 76. Thus, Y = 76 - 56 = 20 yellow marbles."
+    assert:
+      - type: contains
+        value: "<symbolic_template_question>"
+      - type: contains
+        value: "<symbolic_template_answer>"
+      - type: contains
+        value: "#variables:"
+      - type: contains
+        value: "#conditions:"
+      - type: javascript
+        value: |
+          const hasQuestionTemplate = output.includes("<symbolic_template_question>") && output.includes("</symbolic_template_question>");
+          const hasAnswerTemplate = output.includes("<symbolic_template_answer>") && output.includes("</symbolic_template_answer>");
+          const hasPlaceholders = output.includes("{name}") && output.includes("{x}");
+          const hasRanges = output.includes("range(") && output.includes("sample(");
+          return hasQuestionTemplate && hasAnswerTemplate && hasPlaceholders && hasRanges;

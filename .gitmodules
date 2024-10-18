@@ -1,0 +1,3 @@
+[submodule "gsm-symbolic-reproduction/datasets/openai-gsm8k"]
+	path = gsm-symbolic-reproduction/datasets/openai-gsm8k
+	url = https://huggingface.co/datasets/openai/gsm8k
