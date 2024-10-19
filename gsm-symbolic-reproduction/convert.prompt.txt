@@ -47,29 +47,8 @@ Your output should follow this format:
 [Generalized solution template]
 </symbolic_template>
 
-Here's an example of the expected output format:
+Here's an example of the expected behavior:
 
-<example>
-When {name} watches her {family}, she gets out a variety of toys for him. The bag of building blocks has {x} blocks in it. The bin of stuffed animals has {y} stuffed animals inside. The tower of stacking rings has {z} multicolored rings on it. {name} recently bought a tube of bouncy balls, bringing her total number of toys she bought for her {family} up to {total}. How many bouncy balls came in the tube?
-
-#variables:
-- {name} = sample(names)
-- {family} = sample(["nephew", "cousin", "brother"])
-- {x} = range(5, 100)
-- {y} = range(5, 100)
-- {z} = range(5, 100)
-- {total} = range(100, 500)
-- {ans} = range(85, 200)
-
-#conditions:
-- {x} + {y} + {z} + {ans} == {total}
-
-Let T be the number of bouncy balls in the tube. After buying the tube of balls, {name} has {x} + {y} + {z} + T = {x+y+z} + T = {total} toys for her {family}.
-
-Thus, T = {total} - {x+y+z} = {ans} bouncy balls came in the tube.
-</example>
-
-A complete example is:
 <complete_example>
 <inputs>
 <word_problem_question>
@@ -77,8 +56,9 @@ When Sophie watches her nephew, she gets out a variety of toys for him. The bag 
 </word_problem_question>
 <word_problem_answer>
 Let T be the number of bouncy balls in the tube.
-After buying the tube of balls, Sophie has 31+8+9+ T = 48 + T = 62 toys for her nephew.
-Thus, T = 62-48 = 14 bouncy balls came in the tube.
+After buying the tube of balls, Sophie has 31 + 8 + 9 + T = 48 + T = 62 toys for her nephew.
+Thus, T = 62 - 48 = <<62-48=14>>14 bouncy balls came in the tube.
+#### 14
 </word_problem_answer>
 </inputs>
 <output>
@@ -101,6 +81,7 @@ When {name} watches her {family}, she gets out a variety of toys for him. The ba
 Let T be the number of bouncy balls in the tube. After buying the tube of balls, {name} has {x} + {y} + {z} + T = {x+y+z} + T = {total} toys for her {family}.
 
 Thus, T = {total} - {x+y+z} = {ans} bouncy balls came in the tube.
+#### {ans}
 </symbolic_template_answer>
 </output>
 </complete_example>

@@ -14,7 +14,7 @@ all: process-dataset
 light-run: $(VENV) parquet-to-jsonl
 	@echo "Processing a small subset of the dataset..."
 	@mkdir -p $(OUTPUT_DIR)
-	@head -n 10 $(INTERMEDIATE_DIR)/train-00000-of-00001.jsonl | \
+	@head -n 1000 $(INTERMEDIATE_DIR)/train-00000-of-00001.jsonl | \
 	go run symbolize_gsm8k.go > $(OUTPUT_DIR)/train-light-run.jsonl
 	@echo "Light run complete. Output saved to $(OUTPUT_DIR)/train-light-run.jsonl"
 

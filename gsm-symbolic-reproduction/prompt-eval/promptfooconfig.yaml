@@ -23,10 +23,17 @@ tests:
     vars:
       question:
         - "When Sophie watches her nephew, she gets out a variety of toys for him. The bag of building blocks has 31 blocks in it. The bin of stuffed animals has 8 stuffed animals inside. The tower of stacking rings has 9 multicolored rings on it. Sophie recently bought a tube of bouncy balls, bringing her total number of toys for her nephew up to 62. How many bouncy balls came in the tube?"
-        - "Emma has a collection of marbles. She has 15 blue marbles, 23 red marbles, and 18 green marbles. Emma's parents give her a bag of yellow marbles for her birthday, increasing her total marble count to 76. How many yellow marbles did Emma receive?"
+        - "Percius has a collection of marbles. 40% of them are clear. 20% are black, and the remainder are all the other colors. A friend of his asks if he can take five marbles. On average, how many marbles of other colors will his friend end up getting?"
       answer:
-        - "Let T be the number of bouncy balls in the tube. After buying the tube of balls, Sophie has 31+8+9+ T = 48 + T = 62 toys for her nephew. Thus, T = 62-48 = 14 bouncy balls came in the tube."
-        - "Let Y be the number of yellow marbles Emma received. Emma's total marble count is 15 + 23 + 18 + Y = 56 + Y = 76. Thus, Y = 76 - 56 = 20 yellow marbles."
+        - |-
+          Let T be the number of bouncy balls in the tube.
+          After buying the tube of balls, Sophie has 31 + 8 + 9 + T = 48 + T = 62 toys for her nephew.
+          Thus, T = 62 - 48 = <<62-48=14>>14 bouncy balls came in the tube.
+          #### 14
+        - |-
+          40% of the marbles are of other colors because 100 - 20 - 40 = <<100-20-40=40>>40
+          The friend will on average get 2 other colored marbles because 5 x .4 = <<5*.4=2>>2
+          #### 2
     assert:
       - type: contains
         value: "<symbolic_template_question>"
@@ -36,6 +43,8 @@ tests:
         value: "#variables:"
       - type: contains
         value: "#conditions:"
+      - type: contains
+        value: "### {ans}"
       - type: javascript
         value: |
           const hasQuestionTemplate = output.includes("<symbolic_template_question>") && output.includes("</symbolic_template_question>");
